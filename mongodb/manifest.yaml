@@ -4,7 +4,7 @@ metadata:
  name: mongodb
  namespace: roboshop
 spec:
- storageClassName: ""
+ storageClassName: roboshop-ebs
  accessModes: 
   - ReadWriteOnce
  resources:
@@ -54,8 +54,16 @@ spec:
     component: db
     environment: dev
   spec:
-   - name: mongodb
-     image: sivamedam/mongodb:1.0.0
+   containers:
+    - name: mongodb
+      image: sivamedam/mongodb:1.0.0
+      volumemounts:
+       - name: mongodb
+         mountPath: /data/db
+   volumes:
+    - name: mongodb
+      persistentVolumeClaim:
+       claimName: mongodb
 ---
 apiVersion: v1
 kind: Service
