@@ -36,7 +36,7 @@ spec:
       component: mongodb
   serviceName: "mongodb-headless" # we should attach headless service
   #replicas: 3
-  replicas: 1 # by default is 1
+  replicas: 3 # by default is 1
   # Pod definition
   template:
     metadata:
@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: joindevops/mongodb:1.0.0
+        image: sivamedam/mongodb:1.0.0
         volumeMounts:
         - name: mongodb
           mountPath: /data/db
