@@ -57,7 +57,7 @@ spec:
    containers:
     - name: mongodb
       image: sivamedam/mongodb:1.0.0
-      volumemounts:
+      volumeMounts:
        - name: mongodb
          mountPath: /data/db
    volumes:
