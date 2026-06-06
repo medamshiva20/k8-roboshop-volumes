@@ -2,12 +2,12 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
  name: mongodb
- namepsace: roboshop
+ namespace: roboshop
 spec:
  storageClassName: ""
  accessModes: 
   - ReadWriteOnce
- resource:
+ resources:
   requests:
    storage: 1Gi
 ---
