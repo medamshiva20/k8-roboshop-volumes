@@ -48,14 +48,14 @@ spec:
       readinessProbe:
        tcpSocket:
         port: 8080
-       failureThreshold: 2
-       periodSeconds: 10
-       initialDelaySeconds: 15
+       failureThreshold: 2 #If the readiness check fails 2 times in a row, Kubernetes marks the pod as Not Ready.
+       periodSeconds: 10 #Kubernetes performs the readiness check every 10 seconds.
+       initialDelaySeconds: 15 #After the container starts, Kubernetes waits 15 seconds before performing the first readiness check.
       livenessProbe:
        httpGet:
         path: /health
         port: 8080
-       failureThreshold: 2
+       failureThreshold: 2 
        periodSeconds: 10  
       envFrom:
        - configMapRef:
@@ -80,4 +80,23 @@ spec:
   - protocol: TCP
     port: 8080
     targetPort: 8080
-
+---
+apiVersion: autoscaling/v2
+kind: HarizontalPodAutoscaler
+metadata:
+ name: catalogue
+ namespace: roboshop
+spec:
+ scaleTargetRef:
+  apiVersion: apps/v1
+  kind: Deployment
+  name: catalogue
+ minReplicas: 1
+ maxReplicas: 10
+ metrics:
+  - type: Resource
+    resource:
+     name: cpu
+     target:
+      type: Utilization
+      averageUtilization: 20
