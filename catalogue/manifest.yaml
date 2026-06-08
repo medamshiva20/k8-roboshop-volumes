@@ -82,21 +82,21 @@ spec:
     targetPort: 8080
 ---
 apiVersion: autoscaling/v2
-kind: HarizontalPodAutoscaler
+kind: HorizontalPodAutoscaler
 metadata:
- name: catalogue
- namespace: roboshop
-spec:
- scaleTargetRef:
-  apiVersion: apps/v1
-  kind: Deployment
   name: catalogue
- minReplicas: 1
- maxReplicas: 10
- metrics:
+  namespace: roboshop
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: catalogue
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
   - type: Resource
     resource:
-     name: cpu
-     target:
-      type: Utilization
-      averageUtilization: 20
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 20
