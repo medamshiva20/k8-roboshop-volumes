@@ -28,7 +28,8 @@ metadata:
   tier: db
   component: mongodb
 spec:
- replicas: 3
+ #replicas: 3
+ replicas: 1
  selector:
   matchLabels:
    project: roboshop
